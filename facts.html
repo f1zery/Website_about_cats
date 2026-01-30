@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Статьи — Забавные коты</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/articles.js" defer></script>
+    <script src="js/common.js" defer></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const root = document.getElementById("articles");
+        const articles = Array.isArray(window.CAT_ARTICLES) ? window.CAT_ARTICLES : [];
+
+        if (!root) return;
+        if (articles.length === 0) {
+          root.innerHTML = '<div class="section"><h2>Пока пусто</h2><p>Добавь статьи в <b>articles.js</b>.</p></div>';
+          return;
+        }
+
+        root.innerHTML = articles
+          .map((a) => {
+            const title = (a.title || "Статья").replaceAll("<", "&lt;");
+            const date = (a.date || "").replaceAll("<", "&lt;");
+            const author = (a.author || "").replaceAll("<", "&lt;");
+            const content = Array.isArray(a.content) ? a.content : [];
+            const contentHtml = content.map((p) => {
+              const safe = String(p).replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+              return `<p>${safe.replaceAll("\n", "<br>")}</p>`;
+            }).join("");
+            const images = Array.isArray(a.images) ? a.images : [];
+            const imagesHtml = images.length
+              ? `<div class="article-images">${images
+                  .map((img) => {
+                    const src = encodeURI(img.src || "");
+                    const alt = (img.alt || "").replaceAll('"', "&quot;");
+                    return `<img src="${src}" alt="${alt}" loading="lazy" decoding="async" />`;
+                  })
+                  .join("")}</div>`
+              : "";
+
+            const dateLabel = date ? `<span class="article-date">${date}</span>` : "";
+            const arrowSvg = `<span class="article-arrow" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span>`;
+            return `
+              <details class="article">
+                <summary><span class="article-title">${title}</span>${dateLabel}${arrowSvg}</summary>
+                <div class="meta">${[author].filter(Boolean).join(" • ")}</div>
+                <div class="content">${contentHtml}</div>
+                ${imagesHtml}
+              </details>
+            `;
+          })
+          .join("");
+      });
+    </script>
+  </head>
+  <body>
+    <div class="page">
+      <header class="header">
+        <div class="container header-inner">
+          <a class="brand" href="index.html" aria-label="Забавные коты — главная">
+            <img src="image/logo.png" alt="" aria-hidden="true" />
+            <span>Забавные коты</span>
+          </a>
+          <nav class="nav" aria-label="Разделы">
+            <a class="btn btn-ghost" data-nav href="watch.html">Смотреть</a>
+            <a class="btn btn-ghost" data-nav href="about.html">О нас</a>
+            <a class="btn btn-ghost" data-nav href="facts.html">Статьи</a>
+          </nav>
+        </div>
+      </header>
+
+      <main class="main">
+        <div class="container">
+          <section class="section section-intro" aria-label="О разделе">
+            <p class="intro-text">Здесь собраны статьи, интересные факты и советы про кошек. Ниже — список статей.</p>
+          </section>
+          <section class="section" aria-label="Список статей">
+            <div id="articles" class="articles"></div>
+          </section>
+        </div>
+      </main>
+
+      <footer class="site-footer" id="footer">
+        <div class="container">
+          <div class="footer-inner">
+            <a class="footer-link" href="mailto:rizhik.kotov@yandex.by">rizhik.kotov@yandex.by</a>
+            <a class="footer-telegram" href="https://t.me/funnyy_cats" target="_blank" rel="noopener noreferrer" aria-label="Забавные Коты в Telegram">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+            </a>
+            <a class="footer-link" href="about.html">О нас</a>
+            <span class="footer-year">© <span id="year"></span></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
