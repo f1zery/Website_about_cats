@@ -281,11 +281,30 @@ a {
 
 .photo-meta {
   padding: 12px 12px 12px;
+  min-height: 1.4em;
+  font-size: 12px;
+  color: rgba(37, 37, 33, 0.65);
+}
+
+.photo-meta a {
+  color: rgba(37, 37, 33, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.photo-meta a:hover {
+  color: #252521;
 }
 
 .photo-meta .caption {
   font-weight: 900;
   margin: 0 0 6px;
+}
+
+.photo-meta .photo-label {
+  margin: 0;
+  color: rgba(37, 37, 33, 0.65);
+  font-size: 13px;
 }
 
 .photo-meta .author {
@@ -372,6 +391,14 @@ a {
   gap: 12px;
 }
 
+.article-image {
+  margin: 0 0 8px;
+}
+
+.article-image:last-child {
+  margin-bottom: 0;
+}
+
 .article-images img {
   max-width: 100%;
   width: auto;
@@ -380,6 +407,24 @@ a {
   object-fit: contain;
   border-radius: 12px;
   border: 1px solid rgba(37, 37, 33, 0.12);
+}
+
+.article-image-meta {
+  font-size: 12px;
+  color: rgba(37, 37, 33, 0.65);
+  margin-top: 6px;
+  line-height: 1.4;
+  min-height: 1.4em;
+}
+
+.article-image-meta a {
+  color: rgba(37, 37, 33, 0.75);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.article-image-meta a:hover {
+  color: #252521;
 }
 
 /* Футер — тёмный, почта, Telegram, О нас */
