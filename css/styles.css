@@ -1,6 +1,3 @@
-/* Забавные коты — общий стиль для всех страниц
-   Палитра: #C5AF9D #252521 #B2B8B4 */
-
 :root {
   --bg: #c5af9d;
   --ink: #252521;
@@ -426,8 +423,6 @@ a {
 .article-image-meta a:hover {
   color: #252521;
 }
-
-/* Футер — тёмный, почта, Telegram, О нас */
 .site-footer {
   background: #252521;
   color: #b2b8b4;
